@@ -8,10 +8,43 @@ describe("Fluent object properties",function(){
             
             // this.myProperty should be a function
             expect(this.myProperty).toEqual(jasmine.any(Function));
-
+            
+            expect(this.myProperty(42).myProperty()).toBe(42);
         }
         Fluent.object(A).addProperty('myProperty');
         new A();
+    });
+    
+    it("should be available in internal methods", function(){
+        function A(){
+            this.doSomething = function(){
+                // this.myProperty should be available in the constructor
+                expect(this.myProperty).toBeDefined();
+
+                // this.myProperty should be a function
+                expect(this.myProperty).toEqual(jasmine.any(Function));
+                
+                expect(this.myProperty(42).myProperty()).toBe(42);
+            }
+        }
+        Fluent.object(A).addProperty('myProperty');
+
+        new A().doSomething();
+    });
+    
+    it("should be avialable in prototype defined methods", function(){
+        function A(){}
+        Fluent.object(A).addProperty('myProperty');
+        A.prototype.doSomething = function(){
+            // this.myProperty should be available in the constructor
+            expect(this.myProperty).toBeDefined();
+
+            // this.myProperty should be a function
+            expect(this.myProperty).toEqual(jasmine.any(Function));
+
+            expect(this.myProperty(42).myProperty()).toBe(42);
+        }
+        new A().doSomething();
     });
     
     it("should be fluent getters and setters", function(){
@@ -40,16 +73,6 @@ describe("Fluent object properties",function(){
         
     });
     
-    // todo: show availability
-//    function A(){
-//        this.internalFunction = function(){
-//            this.test("booyeah");
-//            console.log(this.test());
-//        }
-//    }
-//    Fluent.object(A).addProperty('test');
-//    
-//    var a = new A();
-//    a.internalFunction();
+    
     
 });
