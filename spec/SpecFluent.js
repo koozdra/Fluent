@@ -40,5 +40,16 @@ describe("Fluent object properties",function(){
         
     });
     
+    // todo: show availability
+//    function A(){
+//        this.internalFunction = function(){
+//            this.test("booyeah");
+//            console.log(this.test());
+//        }
+//    }
+//    Fluent.object(A).addProperty('test');
+//    
+//    var a = new A();
+//    a.internalFunction();
     
 });
